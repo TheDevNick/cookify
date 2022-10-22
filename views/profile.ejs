@@ -10,12 +10,20 @@
             <h2>Share a Recipe</h2>
             <form action="/post/createPost" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
-                  <label for="title" class="form-label"> Recipe Name</label>
-                  <input type="text" class="form-control" id="title" name="title">
+                  <label for="recipeName" class="form-label"> Recipe Name</label>
+                  <input type="text" class="form-control" id="recipeName" name="recipeName">
               </div>
               <div class="mb-3">
-                <label for="recipe" class="form-label">Recipe</label>
-                <textarea class="form-control" id="recipe" name="recipe"></textarea>
+                  <label for="prepTime" class="form-label"> Prep Time</label>
+                  <input type="number" class="form-control" id="prepTime" name="prepTime">
+              </div>
+              <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients</label>
+                <textarea class="form-control" id="ingredients" name="ingredients"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="instructions" class="form-label">Instructions</label>
+                <textarea class="form-control" id="instructions" name="instructions"></textarea>
               </div>
               <div class="mb-3">
                 <label for="imgUpload" class="form-label">Food Image</label>

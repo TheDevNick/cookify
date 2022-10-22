@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const logger = require('morgan')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
+const postRoutes = require('./routes/posts')
 const passport = require('passport')
 const session = require("express-session")
 const MongoStore = require("connect-mongo")
@@ -56,6 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Routes
 app.use('/', mainRoutes)
+app.use('/post', postRoutes)
 
 
 const PORT = process.env.PORT || 3000
