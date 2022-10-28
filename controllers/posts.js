@@ -26,6 +26,7 @@ module.exports = {
         // const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
         .lean()
+        console.log(post)
       res.render("post.ejs", { post: post, user: req.user }) //comments: comments
     } catch (err) {
       console.log(err)
@@ -57,10 +58,12 @@ module.exports = {
     try {
       // Find post by id
       let post = await Post.findById({ _id: req.params.id })
+      console.log(post)
+      
       // Delete image from cloudinary
       await cloudinary.uploader.destroy(post.cloudinaryId)
       // Delete post from db
-      await Post.remove({ _id: req.params.id })
+      await Post.deleteOne({ _id: req.params.id })
       console.log("Deleted Post")
       res.redirect("/profile")
     } catch (err) {
