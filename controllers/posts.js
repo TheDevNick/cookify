@@ -6,6 +6,7 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id })
+      console.log(posts)
       res.render("profile.ejs", { posts: posts, user: req.user })
     } catch (err) {
       console.log(err)
@@ -36,7 +37,6 @@ module.exports = {
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path)
-      console.log(result)
 
       await Post.create({
         recipeName: req.body.recipeName,

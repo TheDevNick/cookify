@@ -1,52 +1,112 @@
 <%- include('partials/header') -%>
-<div class="container">
-  <div class="row mt-5">
-      <div class="col-6">
-          <div>
-              <p>Hello, <strong><%= user.userName %></strong></p>
-              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-          </div>
-          <div class="mt-5">
-            <h2>Share a Recipe</h2>
-            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
-              <div class="mb-3">
-                  <label for="recipeName" class="form-label"> Recipe Name</label>
-                  <input type="text" class="form-control" id="recipeName" name="recipeName">
-              </div>
-              <div class="mb-3">
-                  <label for="prepTime" class="form-label"> Prep Time</label>
-                  <input type="number" class="form-control" id="prepTime" name="prepTime">
-              </div>
-              <div class="mb-3">
-                <label for="ingredients" class="form-label">Ingredients</label>
-                <textarea class="form-control" id="ingredients" name="ingredients"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="instructions" class="form-label">Instructions</label>
-                <textarea class="form-control" id="instructions" name="instructions"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="imgUpload" class="form-label">Food Image</label>
-                <input type="file" class="form-control" id="imageUpload" name="file">
-              </div>
-              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-            </form>
-          </div>
+<!-- <div class="flex">
+
+  <form action="/post/createPost" method="post" enctype="multipart/form-data" class="m-4 p-4 border-solid border-2 border-yellow-200 w-6/12 rounded flex-auto w-64">
+      <div class="flex flex-col">
+      <label for="recipeName" class="form-label"> Recipe Name</label>
+      <input type="text" id="recipeName" name="recipeName" placeholder="Type here" class="input input-sm input-bordered input-warning w-full max-w-xs" />
       </div>
-      <div class="col-6">
-        <ul class="row list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
-            </a>
-          </li>
-        <% } %>
-        </ul>
-        <div class="row justify-content-center mt-5">
-          <a class="btn btn-primary" href="/feed">Return to Feed</a>
-        </div>  
-      </div>  
+      <div class="flex flex-col">
+          <label for="prepTime" class="form-label"> Prep Time</label>
+          <input type="number" class="input input-sm input-bordered input-warning w-full max-w-xs" id="prepTime" name="prepTime">
+      </div>
+      <div class="flex flex-col">
+        <label for="ingredients" class="form-label">Ingredients</label>
+        <textarea class="input input-sm input-bordered input-warning w-full max-w-xs" id="ingredients" name="ingredients"></textarea>
+      </div>
+      <div class="flex flex-col">
+        <label for="instructions" class="form-label">Instructions</label>
+        <textarea class="input input-sm input-bordered input-warning w-full max-w-xs" id="instructions" name="instructions"></textarea>
+      </div>
+      <div class="flex flex-col">
+        <label for="imgUpload" class="form-label">Food Image</label>
+        <input type="file"  id="imageUpload" name="file">
+      </div>
+      <button type="submit" class="btn btn-primary" value="Upload">Add Recipe</button>
+  </form>
+
+      <div class="grid grid-cols-3 gap-4 flex items-center flex-auto w-64">
+      <ul class="">
+      <% for(var i=0; i<posts.length; i++) {%>
+        <li class="">
+          <a href="/post/<%= posts[i]._id%>">
+            <img class="max-w-full h-auto rounded-full" src="<%= posts[i].image%>">
+          </a>
+        </li>
+      <% } %>
+      </ul>
+    </div> 
+</div> -->
+
+<div class="p-8">
+  <div class="p-8 bg-white shadow mt-24">
+    <div class="grid grid-cols-1 md:grid-cols-3">
+      <div
+        class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0"
+      >
+        <div>
+          <p class="font-bold text-gray-700 text-xl">0</p>
+          <p class="text-gray-400">Recipes</p>
+        </div>
+        <div>
+          <p class="font-bold text-gray-700 text-xl">0</p>
+          <p class="text-gray-400">Likes</p>
+        </div>
+        <div>
+          <p class="font-bold text-gray-700 text-xl">0</p>
+          <p class="text-gray-400">Comments</p>
+        </div>
+      </div>
+      <div class="relative">
+        <div
+          class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-24 w-24"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="mt-20 text-center border-b pb-12">
+      <h1 class="text-4xl font-medium text-gray-700">
+        <%= user.userName %>, <span class="font-light text-gray-500">27</span>
+      </h1>
+      <p class="font-light text-gray-600 mt-3">Bucharest, Romania</p>
+      <p class="mt-8 text-gray-500">Solution Manager - Creative Tim Officer</p>
+      <p class="mt-2 text-gray-500">University of Computer Science</p>
+    </div>
+    <div class="mt-12 flex flex-col justify-center">
+      <p class="text-gray-600 text-center font-light lg:px-16">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dolor nihil deserunt maxime exercitationem, illo numquam impedit tempora aliquam, enim, sit ducimus voluptatum dignissimos delectus. Perspiciatis, voluptatum? Cum culpa earum libero saepe, laudantium soluta repellat voluptate incidunt distinctio. Vel, esse!
+      </p>
     </div>
   </div>
+</div>
+
+<div class="grid grid-cols-3">
+  <% for(var i=0; i<posts.length; i++) {%>
+  <div class="rounded-lg shadow-lg bg-white max-w-sm">
+    <a href="/post/<%= posts[i]._id%>" data-mdb-ripple="true" data-mdb-ripple-color="light">
+      <img class="rounded-t-lg" src="<%= posts[i].image %>" alt=""/>
+    </a>
+    <div class="p-6">
+      <h5 class="text-gray-900 text-xl font-medium mb-2"><%= posts[i].recipeName %></h5>
+      <p class="text-gray-700 text-base mb-4">
+        Some quick example text to build on the card title and make up the bulk of the card's
+        content.
+      </p>
+      <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
+    </div>
+  </div>
+   <% } %>
+
 </div>
