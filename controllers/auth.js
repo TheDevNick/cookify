@@ -1,6 +1,8 @@
 const passport = require("passport")
 const validator = require("validator")
 const User = require("../models/User")
+const cloudinary = require("../middleware/cloudinary")
+
 
 exports.getLogin = (req, res) => {
   if (req.user) {
@@ -82,11 +84,21 @@ exports.postSignup = (req, res, next) => {
     gmail_remove_dots: false,
   })
 
+  // const result =  cloudinary.uploader.upload(req.file.path)
+
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,
     password: req.body.password,
+    // userAge: req.body.userAge,
+    // userCity: req.body.userCity,
+    // userState: req.body.userState,
+    // userBio: req.body.userBio,
+    // image: result.secure_url,
+    // cloudinaryId: result.public_id,
   })
+  console.log('logging the user....')
+  console.log(user)
 
   User.findOne(
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
@@ -108,7 +120,7 @@ exports.postSignup = (req, res, next) => {
           if (err) {
             return next(err)
           }
-          res.redirect("/profile")
+          res.redirect("/profile/profileInfo")
         })
       })
     }

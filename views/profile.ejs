@@ -1,44 +1,76 @@
 <%- include('partials/header') -%>
-<div class="container">
-  <div class="row mt-5">
-      <div class="col-6">
-          <div>
-              <p>Hello, <strong><%= user.userName %></strong></p>
-              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-          </div>
-          <div class="mt-5">
-            <h2>Share a Recipe</h2>
-            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
-              <div class="mb-3">
-                  <label for="title" class="form-label"> Recipe Name</label>
-                  <input type="text" class="form-control" id="title" name="title">
-              </div>
-              <div class="mb-3">
-                <label for="recipe" class="form-label">Recipe</label>
-                <textarea class="form-control" id="recipe" name="recipe"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="imgUpload" class="form-label">Food Image</label>
-                <input type="file" class="form-control" id="imageUpload" name="file">
-              </div>
-              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-            </form>
-          </div>
+
+
+<div class="p-8 bg-orange-100">
+  <div class="p-8 bg-white shadow mt-24">
+    <div class="grid grid-cols-1 md:grid-cols-3">
+      <div
+        class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0"
+      >
+        <div>
+          <p class="font-bold text-gray-700 text-xl"><%= posts.length %></p>
+          <p class="text-gray-400">Recipe(s)</p>
+        </div>
+        <div>
+          <p class="font-bold text-gray-700 text-xl">0</p>
+          <p class="text-gray-400">Likes</p>
+        </div>
+        <div>
+          <p class="font-bold text-gray-700 text-xl">0</p>
+          <p class="text-gray-400">Comments</p>
+        </div>
       </div>
-      <div class="col-6">
-        <ul class="row list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
-            </a>
-          </li>
-        <% } %>
-        </ul>
-        <div class="row justify-content-center mt-5">
-          <a class="btn btn-primary" href="/feed">Return to Feed</a>
-        </div>  
-      </div>  
+      <div class="relative">
+        <div
+          class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
+        >
+        <% if (userProfile.image) { %>
+          <img class="rounded-full" src="<%= userProfile.image %>" alt="user profile picture" />
+          <% } else { %>
+            <img class="rounded-full" src="../images/recipes2.jpg" alt="user profile picture" />
+       <% } %>
+        </div>
+      </div>
+    </div>
+    <div class="mt-20 text-center border-b pb-12">
+      <h1 class="text-4xl font-medium text-gray-700">
+        <%= user.userName %>, <span class="font-light text-gray-500"><%= userProfile.userAge %></span>
+      </h1>
+      <p class="font-light text-gray-600 mt-3"><%= userProfile.userCity %>, <%= userProfile.userState%></p>
+      <p class="mt-8 text-gray-500"><%= userProfile.userBio %></p>
+      <p class="mt-2 text-gray-500"><%= user.email %></p>
+    </div>
+
+    <div class="flex justify-center flex-col"> 
+      <% if (posts.length === 0) { %>
+        <h2>You have no recipes posted yet</h2>
+      <% } %>
+    <a href="/profile/createPost" class="btn">Post a Recipe</a>
     </div>
   </div>
+</div>
+
+<div class="grid grid-cols-3 p-4">
+  <% for(var i=0; i<posts.length; i++) {%>
+  <div class="rounded-lg shadow-lg bg-white max-w-sm">
+    <a href="/post/<%= posts[i]._id%>" data-mdb-ripple="true" data-mdb-ripple-color="light">
+      <img class="rounded-t-lg" src="<%= posts[i].image %>" alt=""/>
+    </a>
+    
+    <div class="p-6">
+      <h5 class="text-gray-900 text-xl font-medium mb-2"><%= posts[i].recipeName %></h5>
+      <p class="text-gray-700 text-base mb-4">
+       <strong>Instructions:</strong>  <%= posts[i].instructions %>
+      </p>
+      <p class="text-gray-700 text-base mb-4">
+       <strong>Ingredients:</strong>  <%= posts[i].ingredients %>
+      </p>
+      <p class="text-gray-700 text-base mb-4">
+       <strong>Prep Time:</strong>  <%= posts[i].prepTime %> minutes
+      </p>
+      <button type="button" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">CTA</button>
+    </div>
+  </div>
+   <% } %>
+
 </div>
