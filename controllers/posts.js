@@ -24,6 +24,11 @@ module.exports = {
       console.log(err)
     }
   },
+
+  getCreatePost: async (req, res) => {
+      res.render("createPost.ejs", {})
+  },
+
   createPost: async (req, res) => {
     try {
       // Upload image to cloudinary

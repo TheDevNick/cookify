@@ -8,6 +8,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth")
 
 // Main Routes
 router.get("/", profileController.getProfile)
+router.get("/createPost", profileController.getCreatePost)
 router.get("/profileInfo", profileController.getProfileInfo)
 router.post("/createProfile", upload.single("file"), profileController.createProfile)
 

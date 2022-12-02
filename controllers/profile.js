@@ -3,17 +3,25 @@ const Profile = require('../models/Profile')
 const Post = require('../models/Post')
 
 module.exports = {
-
   getProfile: async (req, res) => {
     try {
       const userProfile = await Profile.find({ user: req.user.id })
       const posts = await Post.find({ user: req.user.id })
-      console.log(userProfile[0].userBio)
-      res.render("profile.ejs", { userProfile: userProfile[0], posts: posts, user: req.user })
+      console.log(userProfile)
+      res.render("profile.ejs", {
+        userProfile: userProfile[0],
+        posts: posts,
+        user: req.user,
+      })
     } catch (err) {
       console.log(err)
     }
   },
+
+  getCreatePost: async (req, res) => {
+    res.render("createPost.ejs")
+  },
+  
   getProfileInfo: (req, res) => {
     res.render("profileInfo.ejs")
   },

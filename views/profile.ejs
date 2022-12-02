@@ -1,42 +1,5 @@
 <%- include('partials/header') -%>
-<!-- <div class="flex">
 
-  <form action="/post/createPost" method="post" enctype="multipart/form-data" class="m-4 p-4 border-solid border-2 border-yellow-200 w-6/12 rounded flex-auto w-64">
-      <div class="flex flex-col">
-      <label for="recipeName" class="form-label"> Recipe Name</label>
-      <input type="text" id="recipeName" name="recipeName" placeholder="Type here" class="input input-sm input-bordered input-warning w-full max-w-xs" />
-      </div>
-      <div class="flex flex-col">
-          <label for="prepTime" class="form-label"> Prep Time</label>
-          <input type="number" class="input input-sm input-bordered input-warning w-full max-w-xs" id="prepTime" name="prepTime">
-      </div>
-      <div class="flex flex-col">
-        <label for="ingredients" class="form-label">Ingredients</label>
-        <textarea class="input input-sm input-bordered input-warning w-full max-w-xs" id="ingredients" name="ingredients"></textarea>
-      </div>
-      <div class="flex flex-col">
-        <label for="instructions" class="form-label">Instructions</label>
-        <textarea class="input input-sm input-bordered input-warning w-full max-w-xs" id="instructions" name="instructions"></textarea>
-      </div>
-      <div class="flex flex-col">
-        <label for="imgUpload" class="form-label">Food Image</label>
-        <input type="file"  id="imageUpload" name="file">
-      </div>
-      <button type="submit" class="btn btn-primary" value="Upload">Add Recipe</button>
-  </form>
-
-      <div class="grid grid-cols-3 gap-4 flex items-center flex-auto w-64">
-      <ul class="">
-      <% for(var i=0; i<posts.length; i++) {%>
-        <li class="">
-          <a href="/post/<%= posts[i]._id%>">
-            <img class="max-w-full h-auto rounded-full" src="<%= posts[i].image%>">
-          </a>
-        </li>
-      <% } %>
-      </ul>
-    </div> 
-</div> -->
 
 <div class="p-8 bg-orange-100">
   <div class="p-8 bg-white shadow mt-24">
@@ -45,8 +8,8 @@
         class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0"
       >
         <div>
-          <p class="font-bold text-gray-700 text-xl">0</p>
-          <p class="text-gray-400">Recipes</p>
+          <p class="font-bold text-gray-700 text-xl"><%= posts.length %></p>
+          <p class="text-gray-400">Recipe(s)</p>
         </div>
         <div>
           <p class="font-bold text-gray-700 text-xl">0</p>
@@ -61,7 +24,11 @@
         <div
           class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
         >
+        <% if (userProfile.image) { %>
           <img class="rounded-full" src="<%= userProfile.image %>" alt="user profile picture" />
+          <% } else { %>
+            <img class="rounded-full" src="../images/recipes2.jpg" alt="user profile picture" />
+       <% } %>
         </div>
       </div>
     </div>
@@ -75,25 +42,33 @@
     </div>
 
     <div class="flex justify-center flex-col"> 
-    <h2>You have no recipes posted yet</h2>
-    <a href="/createPost" class="btn">Post a Recipe</a>
+      <% if (posts.length === 0) { %>
+        <h2>You have no recipes posted yet</h2>
+      <% } %>
+    <a href="/profile/createPost" class="btn">Post a Recipe</a>
     </div>
   </div>
 </div>
 
-<div class="grid grid-cols-3">
+<div class="grid grid-cols-3 p-4">
   <% for(var i=0; i<posts.length; i++) {%>
   <div class="rounded-lg shadow-lg bg-white max-w-sm">
     <a href="/post/<%= posts[i]._id%>" data-mdb-ripple="true" data-mdb-ripple-color="light">
       <img class="rounded-t-lg" src="<%= posts[i].image %>" alt=""/>
     </a>
+    
     <div class="p-6">
       <h5 class="text-gray-900 text-xl font-medium mb-2"><%= posts[i].recipeName %></h5>
       <p class="text-gray-700 text-base mb-4">
-        Some quick example text to build on the card title and make up the bulk of the card's
-        content.
+       <strong>Instructions:</strong>  <%= posts[i].instructions %>
       </p>
-      <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
+      <p class="text-gray-700 text-base mb-4">
+       <strong>Ingredients:</strong>  <%= posts[i].ingredients %>
+      </p>
+      <p class="text-gray-700 text-base mb-4">
+       <strong>Prep Time:</strong>  <%= posts[i].prepTime %> minutes
+      </p>
+      <button type="button" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">CTA</button>
     </div>
   </div>
    <% } %>
